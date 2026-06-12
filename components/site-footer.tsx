@@ -1,8 +1,9 @@
 'use client'
 
-import { ArrowUp, Sun } from 'lucide-react'
+import { ArrowUp } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { InlineCta } from '@/components/inline-cta'
+import { Logo } from '@/components/logo'
 
 export function SiteFooter({
   onContact,
@@ -14,14 +15,7 @@ export function SiteFooter({
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="flex size-8 items-center justify-center rounded-full bg-primary/15">
-                <Sun className="size-4 text-primary" />
-              </span>
-              <span className="font-serif text-lg font-semibold tracking-tight">
-                Solstice Solar
-              </span>
-            </div>
+            <Logo layout="vertical" className="items-start text-left" />
             <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
               Last chance — drop your ZIP and we&apos;ll calculate your 20-year
               savings before you go.

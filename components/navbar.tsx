@@ -1,8 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Menu, Sun } from 'lucide-react'
+import { Menu } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Logo } from '@/components/logo'
 import {
   Sheet,
   SheetContent,
@@ -40,13 +41,8 @@ export function Navbar() {
       )}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="#top" className="flex items-center gap-2">
-          <span className="flex size-8 items-center justify-center rounded-full bg-primary/15">
-            <Sun className="size-4 text-primary" />
-          </span>
-          <span className="font-serif text-lg font-semibold tracking-tight">
-            Solstice Solar
-          </span>
+        <a href="#top">
+          <Logo layout="horizontal" />
         </a>
 
         <ul className="hidden items-center gap-8 md:flex">
@@ -85,8 +81,8 @@ export function Navbar() {
               <Menu className="size-5" />
             </SheetTrigger>
             <SheetContent className="border-border/50 bg-zinc-950/90 backdrop-blur-xl">
-              <SheetTitle className="px-1 font-serif text-xl tracking-tight">
-                Solstice Solar
+              <SheetTitle className="px-1">
+                <Logo layout="horizontal" />
               </SheetTitle>
               <ul className="mt-6 flex flex-col gap-1">
                 {LINKS.map((l) => (

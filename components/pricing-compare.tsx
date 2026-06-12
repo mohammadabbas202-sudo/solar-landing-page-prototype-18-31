@@ -40,7 +40,7 @@ export function PricingCompare() {
 
         <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
           <Reveal>
-            <Card className="h-full border-border/50 bg-background/30 p-8 backdrop-blur-md">
+            <Card className="h-full border-border/50 bg-background/30 p-8 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-zinc-700/80 hover:shadow-[0_10px_30px_-15px_rgba(255,255,255,0.07)]">
               <p className="text-sm uppercase tracking-widest text-muted-foreground">
                 The Status Quo
               </p>
@@ -59,7 +59,7 @@ export function PricingCompare() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <Card className="relative h-full border-2 border-primary/60 bg-zinc-900/50 p-8 backdrop-blur-md">
+            <Card className="relative h-full border-2 border-primary/60 bg-zinc-900/50 p-8 backdrop-blur-md overflow-visible transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-[0_10px_35px_-10px_rgba(245,158,11,0.18)]">
               <span className="absolute -top-3 left-8 inline-flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
                 <TrendingDown className="size-3.5" />
                 Recommended
