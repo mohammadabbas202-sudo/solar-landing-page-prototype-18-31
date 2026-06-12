@@ -1,21 +1,44 @@
 'use client'
 
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { RoiSandbox } from '@/components/roi-sandbox'
 
 export function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [videoLoaded, setVideoLoaded] = useState(false)
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.8
+    }
+  }, [])
+
   return (
     <section
       id="top"
       className="relative flex min-h-screen items-center overflow-hidden"
     >
       {/* Cinematic background */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="/estate-hero.png"
-          alt="Modern luxury home at twilight with solar-ready rooflines"
-          className="size-full object-cover object-bottom"
-        />
+      <div className="absolute inset-0 z-0 overflow-hidden bg-zinc-950">
+        {/* Looping background video */}
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          onPlay={() => setVideoLoaded(true)}
+          className={`absolute inset-0 size-full object-cover object-bottom transition-opacity duration-1000 ${
+            videoLoaded ? 'opacity-60' : 'opacity-0'
+          }`}
+        >
+          <source
+            src="https://videos.pexels.com/video-files/15046856/15046856-hd_1366_720_24fps.mp4"
+            type="video/mp4"
+          />
+        </video>
+        {/* High-contrast vignettes on top of video */}
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/20 via-transparent to-zinc-950/80" />
         <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/95 via-zinc-950/30 to-transparent" />
       </div>

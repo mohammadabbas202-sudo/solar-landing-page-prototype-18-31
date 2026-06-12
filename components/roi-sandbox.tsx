@@ -63,7 +63,10 @@ export function RoiSandbox() {
           max={MAX_BILL}
           step={5}
           value={[bill]}
-          onValueChange={(v) => setBill(v[0])}
+          onValueChange={(v) => {
+            const val = Array.isArray(v) ? v[0] : v
+            if (typeof val === 'number') setBill(val)
+          }}
           aria-label="Monthly electric bill"
         />
         <div className="mt-2 flex justify-between text-xs text-muted-foreground">

@@ -132,3 +132,20 @@
     @apply font-sans;
   }
 }
+
+@keyframes pan-slow {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.06) translate(1%, -0.5%);
+  }
+  100% {
+    transform: scale(1) translate(0, 0);
+  }
+}
+
+@utility animate-pan-slow {
+  animation: pan-slow 24s ease-in-out infinite;
+  will-change: transform;
+}
