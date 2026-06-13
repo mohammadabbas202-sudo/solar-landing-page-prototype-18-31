@@ -32,7 +32,7 @@ export function FeaturesGrid() {
         <p className="text-sm uppercase tracking-widest text-primary">
           The Program
         </p>
-        <h2 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+        <h2 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-balance sm:text-4xl transition-all duration-300 hover:text-primary hover:[text-shadow:0_0_15px_rgba(245,158,11,0.55)] cursor-default">
           Premium hardware. Handled for you.
         </h2>
       </Reveal>
