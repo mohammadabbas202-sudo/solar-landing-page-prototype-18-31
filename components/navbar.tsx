@@ -17,6 +17,7 @@ const LINKS = [
   { label: 'How It Works', href: '#how-it-works' },
   { label: 'Pricing', href: '#pricing' },
   { label: 'Guarantees', href: '#guarantees' },
+  { label: 'FAQ', href: '#faq' },
 ]
 
 export function Navbar() {

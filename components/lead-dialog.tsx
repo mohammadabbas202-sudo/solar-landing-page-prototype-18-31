@@ -18,6 +18,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
+import { useSavings } from '@/components/savings-context'
+import { formatCurrency } from '@/lib/savings'
 
 type LeadContextValue = {
   open: (prefillZip?: string) => void
@@ -35,6 +37,7 @@ export function LeadProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [zip, setZip] = useState('')
+  const { bill, twentyYearSavings, newMonthlyBill } = useSavings()
 
   const open = useCallback((prefillZip?: string) => {
     if (prefillZip) setZip(prefillZip)
@@ -81,6 +84,23 @@ export function LeadProvider({ children }: { children: ReactNode }) {
                   savings. No cost, no obligation.
                 </DialogDescription>
               </DialogHeader>
+
+              <div className="rounded-lg border border-primary/20 bg-primary/5 px-4 py-3 text-sm">
+                <p className="text-muted-foreground">
+                  Based on your{' '}
+                  <span className="font-semibold text-foreground">
+                    {formatCurrency(bill)}/mo
+                  </span>{' '}
+                  bill:
+                </p>
+                <p className="mt-1 font-semibold text-primary">
+                  Est. 20-year savings: {formatCurrency(twentyYearSavings)}
+                </p>
+                <p className="mt-0.5 text-xs text-muted-foreground">
+                  New est. monthly bill: {formatCurrency(newMonthlyBill)}/mo
+                </p>
+              </div>
+
               <form
                 className="flex flex-col gap-3"
                 onSubmit={(e) => {

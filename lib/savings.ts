@@ -37,3 +37,17 @@ export function formatCurrency(value: number): string {
     maximumFractionDigits: 0,
   }).format(value)
 }
+
+/** Rough first-year savings for case-study display. */
+export function estimateFirstYearSavings(monthlyBill: number): number {
+  return Math.max(
+    0,
+    Math.round((monthlyBill - estimateNewMonthlyBill(monthlyBill)) * 12),
+  )
+}
+
+/** Approximate system size (kW) scaled from monthly bill. */
+export function estimateSystemSize(monthlyBill: number): string {
+  const kw = Math.round((monthlyBill / DEFAULT_BILL) * 8.2 * 10) / 10
+  return `${kw} kW`
+}

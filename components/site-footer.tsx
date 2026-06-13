@@ -75,7 +75,7 @@ export function SiteFooter({
                 { label: 'Solar Tax Credits (2026)', href: '#' },
                 { label: 'Texas Utility Rates', href: '#' },
                 { label: 'Homeowner Guide', href: '#' },
-                { label: 'Frequently Asked Questions', href: '#' },
+                { label: 'Frequently Asked Questions', href: '#faq' },
               ].map((link) => (
                 <li key={link.label}>
                   <a

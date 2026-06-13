@@ -3,15 +3,34 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { RoiSandbox } from '@/components/roi-sandbox'
+import { InlineCta } from '@/components/inline-cta'
+import { HERO_VIDEO_SRC } from '@/lib/media'
 
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const [videoLoaded, setVideoLoaded] = useState(false)
+  const [videoReady, setVideoReady] = useState(false)
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.8
+    const video = videoRef.current
+    if (!video) return
+
+    video.playbackRate = 0.8
+
+    const markReady = () => setVideoReady(true)
+
+    video.addEventListener('loadeddata', markReady)
+    if (video.readyState >= 2) markReady()
+
+    const playPromise = video.play()
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Autoplay blocked — still show first frame once buffered
+        video.muted = true
+        void video.play()
+      })
     }
+
+    return () => video.removeEventListener('loadeddata', markReady)
   }, [])
 
   return (
@@ -19,26 +38,19 @@ export function Hero() {
       id="top"
       className="relative flex min-h-screen items-center overflow-hidden"
     >
-      {/* Cinematic background */}
       <div className="absolute inset-0 z-0 overflow-hidden bg-zinc-950">
-        {/* Looping background video */}
         <video
           ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
-          onPlay={() => setVideoLoaded(true)}
-          className={`absolute inset-0 size-full object-cover object-bottom transition-opacity duration-1000 ${
-            videoLoaded ? 'opacity-60' : 'opacity-0'
+          preload="auto"
+          src={HERO_VIDEO_SRC}
+          className={`absolute inset-0 size-full object-cover object-bottom transition-opacity duration-500 ${
+            videoReady ? 'opacity-60' : 'opacity-0'
           }`}
-        >
-          <source
-            src="https://videos.pexels.com/video-files/15046856/15046856-hd_1366_720_24fps.mp4"
-            type="video/mp4"
-          />
-        </video>
-        {/* High-contrast vignettes on top of video */}
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/20 via-transparent to-zinc-950/80" />
         <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/95 via-zinc-950/30 to-transparent" />
       </div>
@@ -62,12 +74,22 @@ export function Hero() {
             <span className="font-semibold text-foreground">$45,000</span> over
             20 years.
           </p>
+
+          <div className="mt-8 max-w-md">
+            <InlineCta
+              compact
+              buttonLabel="Calculate My Savings"
+              placeholder="Enter ZIP code"
+              className="[&_button]:min-h-11 [&_input]:min-h-11"
+            />
+          </div>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          className="order-last lg:order-none"
         >
           <RoiSandbox />
         </motion.div>

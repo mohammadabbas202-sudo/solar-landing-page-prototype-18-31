@@ -5,33 +5,26 @@ import { animate } from 'framer-motion'
 import { TrendingUp } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Slider } from '@/components/ui/slider'
+import { useSavings } from '@/components/savings-context'
 import {
-  DEFAULT_BILL,
   MAX_BILL,
   MIN_BILL,
-  estimateNewMonthlyBill,
-  estimateTwentyYearSavings,
   formatCurrency,
 } from '@/lib/savings'
 
 export function RoiSandbox() {
-  const [bill, setBill] = useState(DEFAULT_BILL)
-  const [displaySavings, setDisplaySavings] = useState(
-    estimateTwentyYearSavings(DEFAULT_BILL),
-  )
-
-  const targetSavings = estimateTwentyYearSavings(bill)
-  const newBill = estimateNewMonthlyBill(bill)
+  const { bill, setBill, twentyYearSavings, newMonthlyBill } = useSavings()
+  const [displaySavings, setDisplaySavings] = useState(twentyYearSavings)
 
   useEffect(() => {
-    const controls = animate(displaySavings, targetSavings, {
+    const controls = animate(displaySavings, twentyYearSavings, {
       duration: 0.6,
       ease: [0.22, 1, 0.36, 1],
       onUpdate: (v) => setDisplaySavings(v),
     })
     return () => controls.stop()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [targetSavings])
+  }, [twentyYearSavings])
 
   return (
     <Card className="w-full gap-0 border-border/50 bg-zinc-900/40 p-6 backdrop-blur-md sm:p-8">
@@ -80,7 +73,7 @@ export function RoiSandbox() {
           New est. monthly bill with solar
         </span>
         <span className="font-semibold tabular-nums text-primary">
-          {formatCurrency(newBill)}/mo
+          {formatCurrency(newMonthlyBill)}/mo
         </span>
       </div>
     </Card>
